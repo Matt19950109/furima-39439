@@ -10,13 +10,13 @@
 | first_name         | string  | null: false               |
 | last_name_kana     | string  | null: false               |
 | first_name_kana    | string  | null: false               |
-| birth_year         | integer | null: false               |
-| birth_month        | integer | null: false               |
-| birth_day          | integer | null: false               |
+| birth_year         | date    | null: false               |
+| birth_month        | date    | null: false               |
+| birth_day          | date    | null: false               |
 
 ### association
 - has_many :items
-- has_many :purchases
+- has_many :purchase
 
 
 ## itemsテーブル
