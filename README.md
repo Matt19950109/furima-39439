@@ -16,7 +16,8 @@
 
 ### association
 - has_many :items
-- has_many :purchase
+- has_many :purchases
+
 
 
 ## itemsテーブル
@@ -33,28 +34,40 @@
 | user             | references | null: false, foreign_key: true |
 
 ### association
-- belongs_to :user
-- has_one :purchases
-- belongs_to :category
-- belongs_to :status
-- belongs_to :fee
-- belongs_to :prefecture
-- belongs_to :days
+- belongs_to             :user
+- has_one                :purchase
+- belongs_to_active_hash :category
+- belongs_to_active_hash :status
+- belongs_to_active_hash :shipping_fee
+- belongs_to_active_hash :prefecture
+- belongs_to_active_hash :shipping_days
+
 
 
 ## purchasesテーブル
+| Column         |Type        |Options                         |
+| ---------------|------------|--------------------------------|
+| user           | references | null: false, foreign_key: true |
+| item           | references | null: false, foreign_key: true |
+| buyer          | references | null: false, foreign_key: true |
+
+### association
+- belongs_to :user
+- belongs_to :item
+- has_one    :buyer
+
+
+
+## buyersテーブル
 | Column         |Type        |Options                         |
 | ---------------|------------|--------------------------------|
 | postal_code    | string     | null: false                    |
 | prefecture_id  | integer    | null: false                    |
 | city           | string     | null: false                    |
 | address        | string     |                                |
-| phone_number   | integer    | null: false                    |
-| user           | references | null: false, foreign_key: true |
-| item           | references | null: false, foreign_key: true |
-
+| phone_number   | string     | null: false                    |
+| purchase       | references | null: false, foreign_key: true |
 
 ### association
-- belongs_to :user
-- belongs_to :item
-- belongs_to :prefecture
+- belongs_to             :purchase
+- belongs_to_active_hash :prefecture
