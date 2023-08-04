@@ -27,7 +27,7 @@
 | item_status_id   | integer    | null: false                    |
 | shipping_fee_id  | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
-| shipping_days_id | integer    | null: false                    |
+| shipping_day_id | integer    | null: false                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
@@ -47,7 +47,6 @@
 | ---------------|------------|--------------------------------|
 | user           | references | null: false, foreign_key: true |
 | item           | references | null: false, foreign_key: true |
-| buyer          | references | null: false, foreign_key: true |
 
 ### association
 - belongs_to :user
