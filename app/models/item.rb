@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   #空の投稿を保存できないようにする
   validates :image, presence: true
   validates :name, presence: true, length: { maximum: 40 }
-  validates :description, presence: true
+  validates :description, presence: true, length: { maximum: 1000 }
 
   #価格の投稿時、半角数字かつ￥333～￥9,999,999以外の時は保存できないようにする
   validates :price, presence: true
