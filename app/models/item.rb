@@ -16,7 +16,6 @@ class Item < ApplicationRecord
 
   #価格の投稿時、半角数字かつ￥333～￥9,999,999以外の時は保存できないようにする
   validates :price, presence: true
-  validates :price, numericality: { with: /\A[0-9]+\z/, message: "is invalid. Input half-width characters" } 
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is out of range" }
 
   #ジャンルの選択が「---」の時は保存できないようにする
