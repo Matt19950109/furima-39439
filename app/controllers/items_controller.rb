@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except:[:index, :show]
+  before_action :contributor_confirmation, only:[:edit, :update]
 
   def index
     @item = Item.includes(:user).order("created_at DESC")
@@ -40,5 +41,12 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :description, :item_category_id, :item_status_id, :shipping_fee_id, :prefecture_id, :shipping_day_id, :price, :image).merge(user_id: current_user.id)
+  end
+
+  def contributor_confirmation
+    @item = Item.find(params[:id])
+    unless current_user.id == @item.user_id
+      redirect_to root_path 
+    end
   end
 end
