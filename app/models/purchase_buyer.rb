@@ -9,8 +9,9 @@ class PurchaseBuyer
     validates :phone_number, format: {with: /\A\d{10,11}\z/, message: "is invalid. Input only number"}
     validates :user_id
     validates :item_id
+    validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
   end
-  validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
+
 
   def save
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
