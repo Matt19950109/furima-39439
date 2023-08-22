@@ -29,7 +29,6 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.postal_code = '1234567'
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
-
       end
       it '郵便番号は全角数字だと購入できない' do
         @purchase_buyer.postal_code = '１２３-４５６７'
@@ -75,6 +74,11 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.item_id = nil
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("Item can't be blank")
+      end
+      it 'クレジットカード情報(token)が空だと購入できない' do
+        @purchase_buyer.token = ''
+        @purchase_buyer.valid?
+        expect(@purchase_buyer.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
