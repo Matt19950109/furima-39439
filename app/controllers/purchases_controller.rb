@@ -1,5 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
+  before_action :item_has_been_purchased
+
   def index
     set_item
     set_gon
@@ -44,5 +46,11 @@ class PurchasesController < ApplicationController
     )
    end
 
+   def item_has_been_purchased
+    # 出品者もしくは購入済の商品の場合、購入画面に遷移しようとしてもトップページに戻る
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user_id || @item.purchase.present?
+      redirect_to root_path
+    end
    end
 end
