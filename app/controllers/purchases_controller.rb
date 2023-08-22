@@ -12,6 +12,7 @@ class PurchasesController < ApplicationController
     set_item
     @purchase_buyer = PurchaseBuyer.new(purchase_params)
     if @purchase_buyer.valid?
+      pay_item
       @purchase_buyer.save
       redirect_to root_path
     else
@@ -31,6 +32,15 @@ class PurchasesController < ApplicationController
 
    def set_gon
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+   end
+
+   def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: purchase_params[:token],
+      currency: 'jpy'
+    )
    end
 
    end
