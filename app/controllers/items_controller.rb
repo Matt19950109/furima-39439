@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only:[:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except:[:index, :show]
   before_action :contributor_confirmation, only:[:edit, :update, :destroy]
+  before_action :item_has_been_purchased, only:[:edit]
 
   def index
     @item = Item.includes(:user).order("created_at DESC")
@@ -55,4 +56,13 @@ class ItemsController < ApplicationController
       redirect_to root_path 
     end
   end
+
+  def item_has_been_purchased
+    # 出品者もしくは購入済の商品の場合、購入画面に遷移しようとしてもトップページに戻る
+    @item = Item.find(params[:id])
+    if current_user.id == @item.user_id || @item.purchase.present?
+      redirect_to root_path
+    end
+   end
+
 end
