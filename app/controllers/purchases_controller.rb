@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   def index
     set_item
+    set_gon
     @purchase_buyer = PurchaseBuyer.new
   end
 
@@ -14,6 +15,7 @@ class PurchasesController < ApplicationController
       @purchase_buyer.save
       redirect_to root_path
     else
+      set_gon
       render :index, status: :unprocessable_entity
     end
   end
@@ -26,6 +28,10 @@ class PurchasesController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+   def set_gon
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+   end
 
    end
 end
