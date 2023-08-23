@@ -45,6 +45,11 @@ RSpec.describe PurchaseBuyer, type: :model do
         @purchase_buyer.valid?
         expect(@purchase_buyer.errors.full_messages).to include("City can't be blank")
       end
+      it '番地が空欄だと購入できない' do
+        @purchase_buyer.house_number = ''
+        @purchase_buyer.valid?
+        expect(@purchase_buyer.errors.full_messages).to include("House number can't be blank")
+      end
       it '電話番号が空欄だと購入できない' do
         @purchase_buyer.phone_number = ''
         @purchase_buyer.valid?
