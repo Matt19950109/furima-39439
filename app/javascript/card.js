@@ -5,7 +5,7 @@ const pay = () => {
   const publicKey = gon.public_key
 
   if (!payjp) {
-    payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
+  payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
   }
 
   const elements = payjp.elements();
