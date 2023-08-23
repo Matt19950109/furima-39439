@@ -60,7 +60,8 @@ class ItemsController < ApplicationController
   def item_has_been_purchased
     # 出品者もしくは購入済の商品の場合、購入画面に遷移しようとしてもトップページに戻る
     @item = Item.find(params[:id])
-    if current_user.id == @item.user_id || @item.purchase.present?
+    if current_user.id == @item.user_id && @item.purchase.nil?
+    else
       redirect_to root_path
     end
    end
